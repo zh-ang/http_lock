@@ -6,6 +6,9 @@ wifi.sta.connect()
 gpio.mode(3, gpio.OUTPUT)
 gpio.write(3, gpio.HIGH);
 
+lock_last = 0;
+lock_count = 0;
+
 tmr.alarm(1, 1000, tmr.ALARM_AUTO, function()
 	if wifi.sta.getip() == nil then
 		print('Waiting for IP ...')
@@ -31,6 +34,8 @@ httpServer:use('/touch', function(req, res)
         tmr.alarm(2, 300, tmr.ALARM_SINGLE, function()
             gpio.write(3, gpio.HIGH);
         end)
+        lock_count = lock_count + 1;
+        lock_last = tmr.time();
         res:send("OK");
     else
         res:send("FAIL");
@@ -51,7 +56,8 @@ httpServer:use('/status', function(req, res)
     res:send('{'..
              '"chip_id": "'..node.chipid()..'",'..
              '"flash_id": "'..node.flashid()..'",'..
-             '"uptime": "'..tmr.time()..'",'..
-             '"chip_id": "'..node.chipid()..'"'..
+             '"count": "'..lock_count..'",'..
+             '"last": "'..(tmr.time()-lock_last)..'",'..
+             '"uptime": "'..tmr.time()..'"'..
              '}')
 end)
