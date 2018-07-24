@@ -1,7 +1,3 @@
-print('Setting up WIFI...')
-wifi.setmode(wifi.STATION)
-wifi.sta.config('Northern_2.4G', 'scut2thu')
-wifi.sta.connect()
 
 gpio.mode(3, gpio.OUTPUT)
 gpio.write(3, gpio.HIGH);
@@ -10,12 +6,12 @@ lock_last = 0;
 lock_count = 0;
 
 tmr.alarm(1, 1000, tmr.ALARM_AUTO, function()
-	if wifi.sta.getip() == nil then
-		print('Waiting for IP ...')
-	else
-		print('IP is ' .. wifi.sta.getip())
-	tmr.stop(1)
-	end
+    if wifi.sta.getip() == nil then
+        print('Waiting for IP ...')
+    else
+        print('IP is ' .. wifi.sta.getip())
+    tmr.stop(1)
+    end
 end)
 
 -- Serving static files
@@ -23,9 +19,9 @@ dofile('httpServer.lua')
 httpServer:listen(80)
 
 -- Custom API
--- Get text/html
 httpServer:use('/', function(req, res)
     res:redirect('index.html')
+    return false
 end)
 
 httpServer:use('/touch', function(req, res)
@@ -49,8 +45,28 @@ httpServer:use('/restart', function(req, res)
     end)
 end)
 
+httpServer:use('/telnet', function(req, res)
+    if req.query['pwd'] == "mydoorguard" then
+        file.open("telnet.tmp", "a+")
+        file.write("do")
+        file.close()
+        res:send('Restarting in 3s ...')
+        tmr.alarm(2, 2000, tmr.ALARM_SINGLE, function()
+            node.restart()
+        end)
+        return
+    end
+    res:send('<!DOCTYPE html>'..
+             '<html lang="en">'..
+             '<head><meta charset="UTF-8"><title>telnet</title></head>'..
+             '<body>'..
+             '<form action="" method="get">'..
+             '<input type="password" name="pwd" placeholder="TELNET PASSWORD" /><input type="submit" value="SUBMIT"/>'..
+             '</form>'..
+             '</body>'..
+             '</html>')
+end)
 
--- Get json
 httpServer:use('/status', function(req, res)
     res:type('application/json')
     res:send('{'..
