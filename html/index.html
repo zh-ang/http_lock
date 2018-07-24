@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Door Guard">
+    <link rel="shortcut icon" href="icon.png">
+    <link rel="icon" href="icon.png">
+    <link rel="apple-touch-icon-precomposed" href="icon.png">
+    <title>Door Guard System</title>
+<style>
+html {
+  height: 100%;
+  background-image: -webkit-linear-gradient(top, #eee, #ddd 20%, #ccc 80%, #bbb);
+}
+
+@media screen and (orientation: landscape) {
+  body { margin-top: 0; }
+}
+
+@media screen and (orientation: portrait) {
+  body { margin-top: 100px; }
+}
+
+h1, h2, h3 {
+  text-align: center;
+}
+
+#button {
+  width: 100px;
+  height: 100px;
+  border-bottom: 2px solid #eee;
+
+  background-image: -webkit-linear-gradient(top, #999, #d0d0d0 80% );
+  background-image: -moz-linear-gradient(top, #999, #d0d0d0 80% );
+  background-image: -ms-linear-gradient(top, #999, #d0d0d0 80% );
+  background-image: -o-linear-gradient(top, #999, #d0d0d0 80% );
+  background-image: linear-gradient(top, #999, #d0d0d0 80% );
+
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border-radius: 100px;
+
+  box-shadow: inset rgba(0,0,0,0.2) 0px 5px 6px ;
+
+  left: 50%;
+  top: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  position: absolute;
+}
+
+#button svg {
+  width: 52px;
+  height: 52px;
+  fill: currentColor;
+  overflow: hidden;
+  margin-top: -14px;
+}
+
+.butt {
+  position: absolute;
+  width: 80px;
+  height: 52px;
+  left: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-family: "Lucida Sans";
+  font-weight: bold;
+  font-size: 23px;
+  color: #888;
+  text-shadow: 0px 1px 0px #fff;
+  text-align: center;
+  padding-top: 28px;
+
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border-radius: 100px;
+
+  background-image: -webkit-linear-gradient(top, #eee, #bbb 70%, #9f9f9f 100% );
+  background-image: -moz-linear-gradient(top, #eee, #bbb 70%, #9f9f9f 100% );
+  background-image: -ms-linear-gradient(top, #eee, #bbb 70%, #9f9f9f 100% );
+  background-image: -o-linear-gradient(top, #eee, #bbb 70%, #9f9f9f 100% );
+  background-image: linear-gradient(top, #eee, #bbb 70%, #9f9f9f 100% );
+
+  background-position: 0 6px;
+  background-color: #eee;
+  background-repeat: no-repeat;
+
+  -webkit-box-shadow: rgba(0,0,0,.4) 0 3px 6px;
+  -moz-box-shadow: rgba(0,0,0,.4) 0 3px 6px;
+  box-shadow: rgba(0,0,0,.4) 0 3px 6px;
+
+  -webkit-transition: all .1s ease-in;
+  -moz-transition: all .1s ease-in;
+  -ms-transition: all .1s ease-in;
+  -o-transition: all .1s ease-in;
+  transition: all .1s ease-in;
+}
+
+.butt:hover {
+  background-position: 0 0px;
+
+  -webkit-box-shadow: rgba(0,0,0,.4) 0 3px 8px;
+  -moz-box-shadow: rgba(0,0,0,.4) 0 3px 8px;
+  box-shadow: rgba(0,0,0,.4) 0 3px 8px;
+}
+
+.butt:active {
+  width: 76px;
+  height: 48px;
+  margin: 2px 0 0 2px;
+  border-bottom: 1px solid #fff;
+  font-size: 21px;
+  color: #777;
+
+  -webkit-box-shadow: inset rgba(0,0,0,.5) 0px 5px 10px;
+  -moz-box-shadow: inset rgba(0,0,0,.5) 0px 5px 10px;
+  box-shadow: inset rgba(0,0,0,.5) 0px 5px 10px;
+}
+
+
+</style>
+</head>
+<body>
+    <h1>Welcome my friend.</h1>
+    <h3 id="bar"></h3>
+    <div id="button">
+        <a id="button_handle" class="butt">
+            <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4880"><path d="M298.666667 597.333333a85.333333 85.333333 0 0 1-85.333334-85.333333 85.333333 85.333333 0 0 1 85.333334-85.333333 85.333333 85.333333 0 0 1 85.333333 85.333333 85.333333 85.333333 0 0 1-85.333333 85.333333m241.066666-170.666666A255.573333 255.573333 0 0 0 298.666667 256a256 256 0 0 0-256 256 256 256 0 0 0 256 256 255.573333 255.573333 0 0 0 241.066666-170.666667H725.333333v170.666667h170.666667v-170.666667h85.333333v-170.666666H539.733333z" fill="" p-id="4881"></path></svg>
+        </a>
+    </div>
+    <script>
+        document.getElementById("button_handle").onclick = function(){
+            var bar = document.getElementById("bar");
+            bar.style.transition = "";
+            bar.style.opacity = "";
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("POST", "/touch", true);
+            xmlhttp.onreadystatechange = function () {
+                switch (xmlhttp.readyState) {
+                    case 0: case 1: case 2: case 3:
+                        bar.style.color= "#888";
+                        bar.innerText = "QUERY: Requesting ...";
+                        break;
+                    case 4:
+                        if (xmlhttp.status == 200) {
+                            bar.style.color= "#693";
+                            bar.innerText = "SUCCESS: "+xmlhttp.responseText;
+                        } else {
+                            bar.style.color= "#944";
+                            bar.innerText = "ERROR: HTTP["+xmlhttp.status+"]";
+                        }
+                        bar.style.transition = "opacity 2s ease-in";
+                        bar.style.opacity = 0.0;
+                }
+            };
+            xmlhttp.send();
+        }
+        document.querySelector("html").addEventListener("touchmove", function () {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>
